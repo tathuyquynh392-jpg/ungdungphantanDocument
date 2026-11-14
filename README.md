@@ -8,7 +8,7 @@ Dự án xây dựng hệ thống quản lý và phê duyệt tài liệu, hỗ 
 - Backend: ASP.NET Core Web API (.NET 10)
 - Frontend: HTML, CSS, JavaScript
 - Database: Microsoft SQL Server
-- Công cụ phát triển: Visual Studio 2022
+- Công cụ phát triển: Visual Studio 2026
 
 ### 3. Kiến trúc dự án
 DocumentApprovalSystem/
@@ -91,7 +91,7 @@ Entity Framework Core được sử dụng để ánh xạ đối tượng C# v�
 
 **Bước 1: Mở dự án**
 
-Mở `DocumentApprovalSystem.slnx` bằng Visual Studio 2022.
+Mở `DocumentApprovalSystem.slnx` bằng Visual Studio 2026.
 
 **Bước 2: Kiểm tra SQL Server**
 
