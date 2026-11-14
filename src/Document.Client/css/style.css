@@ -1,4 +1,8 @@
 
+/* =========================
+   1. CÀI ĐẶT CHUNG
+========================= */
+
 * {
     margin: 0;
     padding: 0;
@@ -6,29 +10,44 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background: #f1f5f9;
-    color: #1e293b;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #f3f6fb;
+    color: #263445;
+    line-height: 1.6;
 }
 
+/* =========================
+   2. HEADER
+========================= */
+
 .header {
-    background: #1e40af;
+    background: linear-gradient(135deg, #123b70, #2563a6);
     color: white;
-    padding: 25px 40px;
+    text-align: center;
+    padding: 35px 20px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
 }
 
     .header h1 {
-        margin-bottom: 8px;
+        font-size: 30px;
+        font-weight: 700;
+        margin-bottom: 5px;
     }
 
     .header p {
-        color: #dbeafe;
+        font-size: 15px;
+        opacity: 0.85;
+        letter-spacing: 1px;
     }
 
+/* =========================
+   3. KHUNG NỘI DUNG
+========================= */
+
 .container {
+    width: 90%;
     max-width: 1200px;
-    margin: 30px auto;
-    padding: 0 20px;
+    margin: 35px auto;
 }
 
 .welcome {
@@ -36,8 +55,18 @@ body {
 }
 
     .welcome h2 {
-        margin-bottom: 8px;
+        color: #173e70;
+        font-size: 25px;
+        margin-bottom: 5px;
     }
+
+    .welcome p {
+        color: #718096;
+    }
+
+/* =========================
+   4. DASHBOARD
+========================= */
 
 .dashboard {
     display: grid;
@@ -48,74 +77,225 @@ body {
 
 .card {
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    padding: 23px;
+    border-radius: 12px;
+    border: 1px solid #e6edf5;
+    box-shadow: 0 3px 12px rgba(30, 60, 90, 0.05);
+    transition: transform 0.2s, box-shadow 0.2s;
 }
 
+    .card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 7px 18px rgba(30, 60, 90, 0.1);
+    }
+
     .card h3 {
-        font-size: 15px;
         color: #64748b;
-        margin-bottom: 15px;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 12px;
     }
 
     .card p {
-        font-size: 30px;
-        font-weight: bold;
-        color: #1e40af;
+        color: #1d4f91;
+        font-size: 32px;
+        font-weight: 700;
     }
+
+/* =========================
+   5. CÁC KHU VỰC CHỨC NĂNG
+========================= */
 
 .document-section {
     background: white;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    overflow-x: auto;
+    padding: 28px;
+    border-radius: 12px;
+    border: 1px solid #e6edf5;
+    box-shadow: 0 3px 12px rgba(30, 60, 90, 0.05);
+    margin-bottom: 28px;
 }
 
     .document-section h2 {
-        margin-bottom: 20px;
+        color: #173e70;
+        font-size: 21px;
+        margin-bottom: 22px;
+        padding-bottom: 12px;
+        border-bottom: 2px solid #edf2f7;
     }
+
+/* =========================
+   6. FORM TẠO TÀI LIỆU
+========================= */
+
+#createDocumentForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+    #createDocumentForm div {
+        display: flex;
+        flex-direction: column;
+    }
+
+    #createDocumentForm label {
+        font-size: 14px;
+        font-weight: 600;
+        color: #334155;
+        margin-bottom: 7px;
+    }
+
+    #createDocumentForm input,
+    #createDocumentForm textarea {
+        width: 100%;
+        padding: 12px 14px;
+        border: 1px solid #d6dfeb;
+        border-radius: 7px;
+        font-family: inherit;
+        font-size: 14px;
+        color: #263445;
+        background: #fbfdff;
+        outline: none;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    #createDocumentForm input {
+        height: 45px;
+    }
+
+    #createDocumentForm textarea {
+        min-height: 90px;
+        resize: vertical;
+    }
+
+        #createDocumentForm input:focus,
+        #createDocumentForm textarea:focus {
+            border-color: #2875c7;
+            box-shadow: 0 0 0 3px rgba(40, 117, 199, 0.12);
+            background: white;
+        }
+
+    #createDocumentForm button {
+        grid-column: 1 / -1;
+        justify-self: start;
+        min-width: 160px;
+        padding: 12px 24px;
+        background: #1d5fa7;
+        color: white;
+        border: none;
+        border-radius: 7px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.2s, transform 0.2s;
+    }
+
+        #createDocumentForm button:hover {
+            background: #16477f;
+            transform: translateY(-2px);
+        }
+
+#formMessage {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* =========================
+   7. BẢNG DANH SÁCH
+========================= */
 
 table {
     width: 100%;
     border-collapse: collapse;
+    overflow: hidden;
 }
 
-th, td {
-    padding: 15px;
-    border-bottom: 1px solid #e2e8f0;
-    text-align: left;
+thead {
+    background: #eaf1f9;
 }
 
 th {
-    background: #eff6ff;
-    color: #1e40af;
+    color: #234b78;
+    font-size: 14px;
+    font-weight: 700;
+    text-align: left;
+    padding: 15px;
 }
 
-td[colspan] {
-    text-align: center;
-    color: #64748b;
+td {
+    padding: 15px;
+    border-bottom: 1px solid #edf1f5;
+    font-size: 14px;
 }
+
+tbody tr:hover {
+    background: #f7faff;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* =========================
+   8. FOOTER
+========================= */
 
 footer {
     text-align: center;
-    padding: 25px;
-    color: #64748b;
+    padding: 22px;
+    background: #173e70;
+    color: #dbeafe;
+    font-size: 14px;
+    margin-top: 40px;
 }
 
-@media (max-width: 768px) {
+/* =========================
+   9. RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
     .dashboard {
         grid-template-columns: repeat(2, 1fr);
     }
+
+    .container {
+        width: 94%;
+    }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 600px) {
+    .header h1 {
+        font-size: 23px;
+    }
+
     .dashboard {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+        .card p {
+            font-size: 26px;
+        }
+
+    .document-section {
+        padding: 18px;
+        overflow-x: auto;
+    }
+
+    #createDocumentForm {
         grid-template-columns: 1fr;
     }
 
-    .header {
-        padding: 20px;
+        #createDocumentForm button {
+            grid-column: 1;
+        }
+
+    table {
+        min-width: 550px;
     }
 }

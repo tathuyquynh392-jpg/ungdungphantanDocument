@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -18,6 +19,7 @@
             <p>Quản lý, theo dõi và phê duyệt tài liệu tập trung.</p>
         </section>
 
+        <!-- Thống kê -->
         <section class="dashboard">
             <div class="card">
                 <h3>Tổng tài liệu</h3>
@@ -40,6 +42,49 @@
             </div>
         </section>
 
+        <!-- Tạo tài liệu -->
+        <section class="document-section">
+            <h2>Tạo tài liệu mới</h2>
+
+            <form id="createDocumentForm">
+                <div>
+                    <label for="title">Tên tài liệu</label>
+                    <input type="text"
+                           id="title"
+                           required
+                           placeholder="Nhập tên tài liệu">
+                </div>
+
+                <div>
+                    <label for="description">Mô tả</label>
+                    <textarea id="description"
+                              required
+                              placeholder="Nhập mô tả tài liệu"></textarea>
+                </div>
+
+                <div>
+                    <label for="fileName">Tên tệp</label>
+                    <input type="text"
+                           id="fileName"
+                           required
+                           placeholder="Ví dụ: baocao.pdf">
+                </div>
+
+                <div>
+                    <label for="createdBy">Người tạo</label>
+                    <input type="text"
+                           id="createdBy"
+                           required
+                           placeholder="Nhập tên người tạo">
+                </div>
+
+                <button type="submit">Tạo tài liệu</button>
+            </form>
+
+            <p id="formMessage"></p>
+        </section>
+
+        <!-- Danh sách tài liệu -->
         <section class="document-section">
             <h2>Danh sách tài liệu</h2>
 
@@ -50,8 +95,11 @@
                         <th>Tên tài liệu</th>
                         <th>Người tạo</th>
                         <th>Trạng thái</th>
+                        <th>Lý do từ chối</th>
+                        <th>Thao tác</th>
                     </tr>
                 </thead>
+
                 <tbody id="documentList">
                     <tr>
                         <td colspan="4">Chưa có tài liệu</td>
