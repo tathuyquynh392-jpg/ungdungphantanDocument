@@ -1,6 +1,7 @@
 <Solution>
   <Folder Name="/src/">
-    <Project Path="src/Document.API/Document.API.csproj" />
-    <Project Path="src/Notification.Service/Notification.Service.csproj" />
+    <Project Path="D:/DocumentApprovalSystem/src/Document.API/Document.API.csproj" />
+    <Project Path="D:/DocumentApprovalSystem/src/Notification.Service/Notification.Service.csproj" />
   </Folder>
+  <Folder Name="/src/Document.Client/" />
 </Solution>

@@ -1,11 +1,21 @@
+
 using Document.API.Data;
+using Document.API.Endpoints;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddControllers();
+// Đăng ký OpenAPI
 builder.Services.AddOpenApi();
+
+// Đăng ký Entity Framework Core
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+
+// Cấu hình CORS cho Client
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowClient", policy =>
@@ -16,26 +26,20 @@ builder.Services.AddCors(options =>
             .AllowAnyMethod();
     });
 });
-// Add Entity Framework
-var connectionString = builder.Configuration
-    .GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-// Build application
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// OpenAPI
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+// Middleware
 app.UseCors("AllowClient");
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
-
-app.MapControllers();
+// Đăng ký Minimal API
+app.MapDocumentsEndpoints();
 
 app.Run();
