@@ -1,13 +1,13 @@
-
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hệ thống phê duyệt tài liệu</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style.css?v=2">
 </head>
 <body>
+    <div id="toast" class="toast"></div>
     <header class="header">
         <h1>Hệ thống phê duyệt tài liệu</h1>
         <p>Document Approval System</p>
@@ -49,32 +49,25 @@
             <form id="createDocumentForm">
                 <div>
                     <label for="title">Tên tài liệu</label>
-                    <input type="text"
-                           id="title"
-                           required
+                    <input type="text" id="title" required
                            placeholder="Nhập tên tài liệu">
                 </div>
 
                 <div>
                     <label for="description">Mô tả</label>
-                    <textarea id="description"
-                              required
+                    <textarea id="description" required
                               placeholder="Nhập mô tả tài liệu"></textarea>
                 </div>
 
                 <div>
                     <label for="fileName">Tên tệp</label>
-                    <input type="text"
-                           id="fileName"
-                           required
+                    <input type="text" id="fileName" required
                            placeholder="Ví dụ: baocao.pdf">
                 </div>
 
                 <div>
                     <label for="createdBy">Người tạo</label>
-                    <input type="text"
-                           id="createdBy"
-                           required
+                    <input type="text" id="createdBy" required
                            placeholder="Nhập tên người tạo">
                 </div>
 
@@ -102,7 +95,7 @@
 
                 <tbody id="documentList">
                     <tr>
-                        <td colspan="4">Chưa có tài liệu</td>
+                        <td colspan="6">Chưa có tài liệu</td>
                     </tr>
                 </tbody>
             </table>
@@ -113,6 +106,10 @@
         <p>Document Approval System - 2026</p>
     </footer>
 
+    <!-- SignalR library -->
+    <script src="https://cdn.jsdelivr.net/npm/@microsoft/signalr@8.0.7/dist/browser/signalr.min.js"></script>
+
+    <!-- Application JavaScript -->
     <script src="js/app.js"></script>
 </body>
 </html>

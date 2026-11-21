@@ -1,10 +1,9 @@
-﻿using System;
-
-
-using Document.API.Data;
+﻿using Document.API.Data;
 using Document.API.DTOs;
+using Document.API.Hubs;
 using DocumentModel = global::Document.API.Models.Document;
 using DocumentStatus = global::Document.API.Models.DocumentStatus;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Document.API.Endpoints;
@@ -19,7 +18,8 @@ public static class DocumentsEndpoints
         // POST: /api/Documents
         group.MapPost("/", async (
             CreateDocumentDto dto,
-            ApplicationDbContext db) =>
+            ApplicationDbContext db,
+            IHubContext<DocumentHub> hub) =>
         {
             var document = new DocumentModel
             {
@@ -33,6 +33,9 @@ public static class DocumentsEndpoints
 
             db.Documents.Add(document);
             await db.SaveChangesAsync();
+
+            // Phát sự kiện realtime
+            await hub.Clients.All.SendAsync("DocumentCreated", document);
 
             return Results.Created(
                 $"/api/Documents/{document.Id}",
@@ -67,7 +70,8 @@ public static class DocumentsEndpoints
         // POST: /api/Documents/{id}/submit
         group.MapPost("/{id:int}/submit", async (
             int id,
-            ApplicationDbContext db) =>
+            ApplicationDbContext db,
+            IHubContext<DocumentHub> hub) =>
         {
             var document = await db.Documents.FindAsync(id);
 
@@ -88,13 +92,17 @@ public static class DocumentsEndpoints
 
             await db.SaveChangesAsync();
 
+            // Phát sự kiện realtime
+            await hub.Clients.All.SendAsync("DocumentSubmitted", document);
+
             return Results.Ok(document);
         });
 
         // POST: /api/Documents/{id}/approve
         group.MapPost("/{id:int}/approve", async (
             int id,
-            ApplicationDbContext db) =>
+            ApplicationDbContext db,
+            IHubContext<DocumentHub> hub) =>
         {
             var document = await db.Documents.FindAsync(id);
 
@@ -115,6 +123,9 @@ public static class DocumentsEndpoints
 
             await db.SaveChangesAsync();
 
+            // Phát sự kiện realtime
+            await hub.Clients.All.SendAsync("DocumentApproved", document);
+
             return Results.Ok(document);
         });
 
@@ -122,7 +133,8 @@ public static class DocumentsEndpoints
         group.MapPost("/{id:int}/reject", async (
             int id,
             RejectDocumentDto dto,
-            ApplicationDbContext db) =>
+            ApplicationDbContext db,
+            IHubContext<DocumentHub> hub) =>
         {
             var document = await db.Documents.FindAsync(id);
 
@@ -149,10 +161,12 @@ public static class DocumentsEndpoints
 
             await db.SaveChangesAsync();
 
+            // Phát sự kiện realtime
+            await hub.Clients.All.SendAsync("DocumentRejected", document);
+
             return Results.Ok(document);
         });
 
         return app;
     }
 }
-

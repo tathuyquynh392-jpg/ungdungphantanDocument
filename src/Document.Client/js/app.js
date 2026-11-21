@@ -1,5 +1,79 @@
-
 const API_URL = "http://localhost:5264/api/Documents";
+// ===============================
+// TOAST NOTIFICATION
+// ===============================
+
+function showToast(message, type = "success") {
+    const toast = document.getElementById("toast");
+
+    if (!toast) {
+        console.error("Không tìm thấy phần tử #toast trong HTML!");
+        return;
+    }
+
+    toast.textContent = message;
+    toast.className = "toast";
+
+    if (type === "error") {
+        toast.classList.add("error");
+    } else if (type === "info") {
+        toast.classList.add("info");
+    }
+
+    toast.classList.add("show");
+
+    setTimeout(() => {
+        toast.classList.remove("show");
+    }, 3000);
+}
+// ===============================
+// SIGNALR - REALTIME CONNECTION
+// ===============================
+const connection = new signalR.HubConnectionBuilder()
+    .withUrl("http://localhost:5264/hubs/documents")
+    .withAutomaticReconnect()
+    .build();
+
+// Bắt đầu kết nối SignalR
+connection.start()
+    .then(() => {
+        console.log("SignalR: Đã kết nối thành công!");
+
+        // Tài liệu mới được tạo
+        connection.on("DocumentCreated", (document) => {
+            console.log("Realtime: Tài liệu mới được tạo!", document);
+
+            showToast(`Tài liệu "${document.title}" vừa được tạo!`);
+            loadDocuments();
+        });
+
+        // Tài liệu được gửi duyệt
+        connection.on("DocumentSubmitted", (document) => {
+            console.log("Realtime: Tài liệu đã gửi duyệt!", document);
+
+            showToast(`Tài liệu "${document.title}" đã được gửi duyệt!`, "info");
+            loadDocuments();
+        });
+
+        // Tài liệu được phê duyệt
+        connection.on("DocumentApproved", (document) => {
+            console.log("Realtime: Tài liệu đã được phê duyệt!", document);
+
+            showToast(`Tài liệu "${document.title}" đã được phê duyệt!`);
+            loadDocuments();
+        });
+
+        // Tài liệu bị từ chối
+        connection.on("DocumentRejected", (document) => {
+            console.log("Realtime: Tài liệu đã bị từ chối!", document);
+
+            showToast(`Tài liệu "${document.title}" đã bị từ chối!`, "error");
+            loadDocuments();
+        });
+    })
+    .catch(error => {
+        console.error("SignalR: Kết nối thất bại!", error);
+    });
 
 // Chuyển trạng thái thành tiếng Việt
 function getStatusText(status) {

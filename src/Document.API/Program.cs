@@ -1,4 +1,4 @@
-
+using Document.API.Hubs;
 using Document.API.Data;
 using Document.API.Endpoints;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +7,8 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Đăng ký OpenAPI
 builder.Services.AddOpenApi();
-
+//đăng ký signalR
+builder.Services.AddSignalR();
 // Đăng ký Entity Framework Core
 var connectionString = builder.Configuration
     .GetConnectionString("DefaultConnection");
@@ -23,7 +24,8 @@ builder.Services.AddCors(options =>
         policy
             .WithOrigins("http://localhost:5500")
             .AllowAnyHeader()
-            .AllowAnyMethod();
+            .AllowAnyMethod()
+            .AllowCredentials();
     });
 });
 
@@ -41,5 +43,8 @@ app.UseHttpsRedirection();
 
 // Đăng ký Minimal API
 app.MapDocumentsEndpoints();
+
+// Đăng ký SignalR Hub
+app.MapHub<DocumentHub>("/hubs/documents");
 
 app.Run();
